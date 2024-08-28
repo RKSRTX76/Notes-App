@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">NotesApp</string>
+    <string name="note_app">Notes App</string>
+    <string name="web_client_id">677592957135-if8e48vi83jilgj1e44bjaqqlho84qje.apps.googleusercontent.com</string>
+    <string name="add_task">Add Task</string>
+    <string name="add_note">Add Note</string>
+    <string name="update_note">Update Note</string>
+</resources>
