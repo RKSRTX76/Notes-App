@@ -12,10 +12,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalNavigationDrawer
 
 import androidx.compose.material3.Scaffold
@@ -30,11 +32,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.rksrtx76.notesapp.R
 import com.rksrtx76.notesapp.data.model.ui_states.UserData
 
 @Composable
@@ -66,9 +70,19 @@ fun NavigationDrawer(
                         .clip(CircleShape),
                     contentScale = ContentScale.Crop
                 )
-                Spacer(modifier = Modifier.height(16.dp))
+                
+            }else{
+                Icon(
+                    painter = painterResource(id = R.drawable.user_logo),
+                    contentDescription = "Profile Picture",
+                    modifier = Modifier
+                        .size(125.dp)
+                        .clip(CircleShape),
+                    tint = Color.Unspecified
+                )
             }
-
+            Spacer(modifier = Modifier.height(16.dp))
+            
             if(userData?.userName != null){
                 Text(
                     text = userData.userName,

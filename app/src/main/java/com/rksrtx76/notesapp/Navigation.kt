@@ -19,12 +19,15 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.google.android.gms.auth.api.identity.Identity
+import com.rksrtx76.notesapp.data.model.ui_states.SignInState
 import com.rksrtx76.notesapp.presentation.NotesViewModel
 import com.rksrtx76.notesapp.presentation.SignInViewModel
+import com.rksrtx76.notesapp.presentation.authentication.EmailAuthClient
 import com.rksrtx76.notesapp.presentation.authentication.GoogleAuthClient
 import com.rksrtx76.notesapp.presentation.screens.AddEditDetailView
 import com.rksrtx76.notesapp.presentation.screens.AuthenticationScreen
 import com.rksrtx76.notesapp.presentation.screens.HomeScreen
+import com.rksrtx76.notesapp.presentation.screens.SignUpScreen
 import kotlinx.coroutines.launch
 
 
@@ -33,7 +36,13 @@ fun Navigation(
     lifecycleScope: LifecycleCoroutineScope
 ){
     val applicationContext = LocalContext.current.applicationContext
-    val authClient by lazy {
+
+    val authClient by lazy{
+        EmailAuthClient(
+            context = applicationContext
+        )
+    }
+    val googleAuthClient by lazy{
         GoogleAuthClient(
             context = applicationContext,
             authClient = Identity.getSignInClient(applicationContext)
@@ -48,7 +57,7 @@ fun Navigation(
 
             // check if already logged in
             LaunchedEffect(key1 = Unit) {
-                val user = authClient.getSignedInUser()
+                val user = googleAuthClient.getSignedInUser()
                 user?.let {
                     navController.navigate("${Screen.HOME_SCREEN}/${user.userId}")
                 }
@@ -59,7 +68,7 @@ fun Navigation(
                 onResult = { result ->
                     if(result.resultCode == RESULT_OK){
                         lifecycleScope.launch {
-                            val signInResult = authClient.signedInWithIntent(
+                            val signInResult = googleAuthClient.signedInWithIntent(
                                 intent = result.data ?: return@launch
                             )
                             signInViewModel.onSignIn(signInResult)
@@ -70,7 +79,7 @@ fun Navigation(
 
             LaunchedEffect(key1 = state.isSignInSuccess) {
                 if(state.isSignInSuccess){
-                    val user = authClient.getSignedInUser()
+                    val user = googleAuthClient.getSignedInUser()
                     user?.let {
                         Toast.makeText(
                             applicationContext,
@@ -85,16 +94,36 @@ fun Navigation(
 
             AuthenticationScreen(
                 state = state,
-                onClick = {
+                onGoogleClick = {
                     lifecycleScope.launch {
-                        val signInIntentSender = authClient.signIn()
+                        val signInIntentSender = googleAuthClient.signIn()
                         launcher.launch(
                             IntentSenderRequest.Builder(
                                 signInIntentSender ?: return@launch
                             ).build()
                         )
                     }
+                },
+                onEmailSignIn = { email, password ->
+                    lifecycleScope.launch {
+                        val signInResult = authClient.signInWithEmailAndPassword(email, password = password)
+                        signInViewModel.onSignIn(signInResult)
+                    }
+                },
+                onSignUpClick = {
+                    navController.navigate(Screen.SIGN_UP_SCREEN)
                 }
+            )
+        }
+        composable(Screen.SIGN_UP_SCREEN){
+            SignUpScreen(
+                onSignUp = { name ,email, password ->
+                    lifecycleScope.launch {
+                        val signUpResult = authClient.signUpWithEmailAndPassword(name, email, password)
+                    }
+                },
+                navController = navController,
+                authClient = googleAuthClient
             )
         }
 
@@ -107,7 +136,7 @@ fun Navigation(
 
             val onSignOut : () -> Unit = {
                 lifecycleScope.launch {
-                    authClient.signOut()
+                    googleAuthClient.signOut()
                     Toast.makeText(
                         applicationContext,
                         "Signed out",
@@ -120,7 +149,7 @@ fun Navigation(
                 navController = navController,
                 userId = userId,
                 viewModel = notesViewModel,
-                userData = authClient.getSignedInUser(),
+                userData = googleAuthClient.getSignedInUser(),
                 onSignOut = onSignOut
             )
         }
@@ -136,7 +165,7 @@ fun Navigation(
         ){ backStackEntry ->
             val documentId = backStackEntry.arguments?.getString("documentId")
             val notesViewModel = hiltViewModel<NotesViewModel>()
-            val user = authClient.getSignedInUser()
+            val user = googleAuthClient.getSignedInUser()
             val userId = user?.userId
             AddEditDetailView(
                 documentId =  if (documentId == "null") null else documentId,

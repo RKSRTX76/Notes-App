@@ -81,9 +81,6 @@ fun AddEditDetailView(
 
 
 
-
-
-
     Scaffold(
         topBar = {
             AppBar(title =
@@ -118,7 +115,7 @@ fun AddEditDetailView(
 
             Button(colors = ButtonDefaults.buttonColors(
                 contentColor = Color.White,
-                containerColor = colorResource(id = R.color.app_bar_color)
+                containerColor = Color.Black
             ),onClick={
                 if(title.isNotEmpty() &&
                     description.isNotEmpty()){
@@ -182,7 +179,7 @@ fun NoteTextField(
         modifier = Modifier
             .fillMaxWidth()
             .padding(start = 8.dp, end = 8.dp),
-        shape = RoundedCornerShape(32.dp),
+        shape = RoundedCornerShape(16.dp),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
         colors = TextFieldDefaults.outlinedTextFieldColors(
             // using predefined Color

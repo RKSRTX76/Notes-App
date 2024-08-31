@@ -1,12 +1,15 @@
 package com.rksrtx76.notesapp.presentation
 
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
+import com.rksrtx76.notesapp.Screen
 import com.rksrtx76.notesapp.data.model.ui_states.SignInResult
 import com.rksrtx76.notesapp.data.model.ui_states.SignInState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,6 +28,7 @@ class SignInViewModel @Inject constructor(
             )
         }
     }
+
 
     fun resetState(){
         _state.update {
