@@ -5,7 +5,7 @@
 Firebase Authentication ensures that notes are accessible only to authenticated users, offering a safe and personalized experience. Perfect for those who need a basic, yet reliable note-taking solution.
 
  ## Getting Started
- Clone the repository: git clone https://github.com/RKSRTX76/Cinemax.git
+ Clone the repository: git clone https://github.com/RKSRTX76/Notes-App
 
  ## Images From The App
 
