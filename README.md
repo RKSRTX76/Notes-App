@@ -9,13 +9,13 @@ Firebase Authentication ensures that notes are accessible only to authenticated 
 
  ## Images From The App
 
-![363413208-22db6f2c-a163-4faf-ab22-c270ccc32299](https://github.com/user-attachments/assets/034140b0-ca36-47af-97af-7a38d48547a2)
+<img src="https://github.com/user-attachments/assets/034140b0-ca36-47af-97af-7a38d48547a2" alt="Image 1" width="250"/>
 
-![Screenshot_20240831-171805](https://github.com/user-attachments/assets/38109c95-81e0-4c46-adff-d14597a9f131)
+<img src="https://github.com/user-attachments/assets/38109c95-81e0-4c46-adff-d14597a9f131" alt="Image 2" width="250"/>
 
-![Screenshot_20240831-171745](https://github.com/user-attachments/assets/a7c41e07-514f-489d-bbe5-d5cc06b518b7)
+<img src="https://github.com/user-attachments/assets/a7c41e07-514f-489d-bbe5-d5cc06b518b7" alt="Image 3" width="250"/>
 
-![Screenshot_20240831-171738](https://github.com/user-attachments/assets/00425b49-d08d-41fd-9cdf-ff9ac08c532d)
+<img src="https://github.com/user-attachments/assets/00425b49-d08d-41fd-9cdf-ff9ac08c532d" alt="Image 4" width="250"/>
 
 
 
